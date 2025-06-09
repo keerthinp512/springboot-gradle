@@ -1,0 +1,87 @@
+openapi: 3.0.1
+info:
+  title: User Company API
+  version: 1.0.0
+  description: Simple API to manage users and the companies they work in
+
+paths:
+  /adduser:
+    post:
+      summary: Add a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+      responses:
+        '200':
+          description: User added or already exists
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /getcompany:
+    get:
+      summary: Get company by user name
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Company name or not found
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /updatecompany:
+    put:
+      summary: Update a user's company
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+      responses:
+        '200':
+          description: Success or user not found
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /removeuser:
+    delete:
+      summary: Delete a user
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success or user not found
+          content:
+            text/plain:
+              schema:
+                type: string
+
+components:
+  schemas:
+    Person:
+      type: object
+      required:
+        - name
+        - company
+      properties:
+        name:
+          type: string
+        company:
+          type: string
